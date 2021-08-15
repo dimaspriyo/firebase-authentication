@@ -40,11 +40,11 @@ export class LoginComponent implements OnInit {
     this.firebaseService.getAllUsers();
     if (this.formTitle == "Login") {
       console.log("Do some Login logic ");
-    this.firebaseService.createUser(this.appForm.value);
     } else if (this.formTitle == "Register") {
+      this.firebaseService.createUser(this.appForm.value);
       console.log("Do some Register logic");
     }
-    console.log("email : " + this.getEmail?.value + " & password : " + this.getPassword?.value);
+    // console.log("email : " + this.getEmail?.value + " & password : " + this.getPassword?.value);
   }
 
   updateTitle(menu: string) {

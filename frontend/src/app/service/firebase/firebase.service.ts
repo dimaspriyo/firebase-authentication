@@ -38,7 +38,7 @@ export class FirebaseService {
       .collection("firebase-authentication")
       .snapshotChanges();
 
-    console.log(users);
+    // console.log(users);
     users.subscribe(res => {
       res.forEach(value => console.log(value.payload.doc.data()));
     });
