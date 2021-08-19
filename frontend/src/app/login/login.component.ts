@@ -36,13 +36,14 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.firebaseService.getAllUsers();
     if (this.formTitle == "Login") {
-      console.log("Do some Login logic ");
+      let login =  await this.firebaseService.signIn(this.getEmail?.value,this.getPassword?.value);
+      console.log(login);
     } else if (this.formTitle == "Register") {
-      this.firebaseService.createUser(this.appForm.value);
-      console.log("Do some Register logic");
+      let isUserCreated = await this.firebaseService.createUser(this.appForm.value);
+      console.log(isUserCreated);
     }
     // console.log("email : " + this.getEmail?.value + " & password : " + this.getPassword?.value);
   }
