@@ -1,5 +1,5 @@
 <div class="container">
-  <app-bar (menu)="updateTitle($event)" ></app-bar>
+  <app-bar (menu)="updateTitle($event)"></app-bar>
   <div class="row">
     <div class="col-md-12">
       <div class="card">
@@ -26,11 +26,18 @@
               <input type="password" id="cyanForm-pass" class="form-control" formControlName="password">
             </div>
 
-            <div class="text-center">
-              <button class="btn btn-info waves-effect waves-light">Login</button>
-            </div>
-          </form>
+            <br>
 
+            <div class="text-center">
+              <input type="submit" class="btn btn-success waves-effect waves-light" value="submit">
+            </div>
+
+          </form>
+          <br>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-info waves-effect waves-light" (click)="this.signInWithGoogle()">Login With Google</button>
+          </div>
         </div>
 
       </div>

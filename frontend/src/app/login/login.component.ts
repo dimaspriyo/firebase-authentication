@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from "@angular/forms";
 import {FirebaseService} from "../service/firebase/firebase.service";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login-component',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private firebaseService: FirebaseService
+    public firebaseService: FirebaseService
   ) {
   }
 
@@ -32,24 +33,43 @@ export class LoginComponent implements OnInit {
   }
 
 
-
   ngOnInit(): void {
   }
 
   async onSubmit() {
     this.firebaseService.getAllUsers();
     if (this.formTitle == "Login") {
-      let login =  await this.firebaseService.signIn(this.getEmail?.value,this.getPassword?.value);
-      console.log(login);
+      let isLoggedIn = await this.firebaseService.signIn(this.getEmail?.value, this.getPassword?.value);
+      if (isLoggedIn) {
+        Swal.fire('Login Succeed', "", "success");
+        this.appForm.reset();
+      } else {
+        Swal.fire('Login Failed', "", "warning");
+      }
     } else if (this.formTitle == "Register") {
       let isUserCreated = await this.firebaseService.createUser(this.appForm.value);
-      console.log(isUserCreated);
+      if (isUserCreated) {
+        Swal.fire('Register Succeed', "", "success");
+        this.appForm.reset();
+      } else {
+        Swal.fire('Register Failed', "", "warning");
+      }
     }
-    // console.log("email : " + this.getEmail?.value + " & password : " + this.getPassword?.value);
   }
 
   updateTitle(menu: string) {
     this.formTitle = menu;
+    this.appForm.reset();
+  }
+
+  async signInWithGoogle() {
+    let isLoggedIn: boolean = await this.firebaseService.signInWithGoogle();
+    if (isLoggedIn) {
+      Swal.fire('Login Succeed', "", "success");
+      this.appForm.reset();
+    } else {
+      Swal.fire('Login Failed', "", "warning");
+    }
   }
 
 }
